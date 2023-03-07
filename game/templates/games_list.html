@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div align="center">
+  <h1 class="margin-20 text-warning">Games in progress</h1>
+  <div align="left">
+    <ul class="list-group">
+      {% for game in games %}
+      <li class="list-group-item">
+        <a class="no-decoration" href="{% url 'game' game.id %}">
+          <b>Game #{{ game.id }}</b> - Players:
+          {% for player in game.gameplayer_set.all %}
+          <button class="btn btn-danger margin-5">{{ player.player.name }}</button>
+          {% endfor %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}

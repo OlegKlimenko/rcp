@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" align="center">
+  <h1 class="margin-20">Game # {{ game.id }}</h1>
+  <div class="row">
+    <div class="col">
+      <h2 class="text-success">Game stats</h2>
+      <div align="left">
+        <hr>
+        <h4 class="text-danger margin-20">Players</h4>
+        <ul class="list-group">
+          {% for player in players %}
+            <li class="list-group-item"><b>{{ player }}</b></li>
+          {% endfor %}
+        </ul>
+
+        {% if winners %}
+          <h4 class="text-primary margin-20">Winners</h4>
+          <p>Rounds Played: <button class="btn btn-primary">{{ rounds.count }}</button></p>
+          {% for winner in winners %}
+          <ul class="list-group">
+            <li class="list-group-item">
+              <b>{{ winner.winner__name }}</b> <button class="btn btn-warning">{{ winner.count }}</button>
+            </li>
+          </ul>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="col">
+      <h2 class="text-danger">Current Round</h2>
+      <hr>
+      Last Round Winner:
+      {% if last_round_winner %}
+      <b>{{ last_round_winner.winner }}</b>
+      {% else %}
+      <b>No Winner</b>
+      {% endif %}
+      <hr>
+      <div>
+        <form action="" onsubmit="SendUserRoundChoice(event)">
+          <div class="margin-20">
+            <p>Select Player</p>
+            <select id="select_player_name" name="player_name" class="form-control main-width">
+              {% for player in players %}
+                <option value="{{ player.name }}">{{ player.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="margin-20">
+            <p>Select option</p>
+            <select id="select_player_choice" name="choice" class="form-control main-width">
+              <option value="R">Rock</option>
+              <option value="P">Paper</option>
+              <option value="S">Scissors</option>
+            </select>
+          </div>
+
+          <input type="submit" value="Action!" class="btn btn-danger margin-20 main-width">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var SEND_USER_ROUND_CHOICE_URL = "{% url 'api_selected_round' game.id current_round.id %}";
+  var GAME_URL = "{% url 'game' game.id %}";
+</script>
+{% endblock %}

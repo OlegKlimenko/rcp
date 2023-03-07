@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div align="center">
+  <h1 class="text-danger margin-20">New Player VS Computer Game</h1>
+
+  <form action="{% url 'new_game' 'PC' %}" method="POST">
+    {% csrf_token %}
+    <div class="margin-10">
+      <b>Player Name</b><br>
+      <input class="main-width form-control" name="player1" type="text" maxlength="64" required><br>
+    </div>
+
+    <div class="margin-10">
+      <input class="main-width form-control" name="player2" type="text" maxlength="64" required hidden value="COMPUTER">
+    </div>
+
+    <input class="btn btn-danger main-width margin-20" type="submit" value="Start New Game">
+  </form>
+</div>
+{% endblock %}
