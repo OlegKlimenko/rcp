@@ -32,7 +32,7 @@
       <h2 class="text-danger">Current Round</h2>
       <hr>
       Last Round Winner:
-      {% if last_round_winner %}
+      {% if last_round_winner and last_round_winner.winner != None %}
       <b>{{ last_round_winner.winner }}</b>
       {% else %}
       <b>No Winner</b>

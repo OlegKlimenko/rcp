@@ -40,7 +40,7 @@ def get_game(game_id):
 
     last_round_winner = None
     if finished_rounds:
-        last_round_winner = finished_rounds.exclude(winner=None).order_by('-id').first()
+        last_round_winner = finished_rounds.order_by('-id').first()
 
     return {
         'game': game,
